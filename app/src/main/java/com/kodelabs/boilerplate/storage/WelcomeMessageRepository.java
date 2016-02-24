@@ -2,10 +2,16 @@ package com.kodelabs.boilerplate.storage;
 
 import com.kodelabs.boilerplate.domain.repository.MessageRepository;
 
+import javax.inject.Inject;
+
 /**
  * Created by dmilicic on 1/29/16.
  */
 public class WelcomeMessageRepository implements MessageRepository {
+
+    @Inject
+    public WelcomeMessageRepository() {}
+
     @Override
     public String getWelcomeMessage() {
         String msg = "Welcome, friend!"; // let's be friendly

@@ -39,8 +39,8 @@ public class MainActivityModule {
     }
 
     @Provides
-    public MessageRepository provideMessageRepository() {
-        return new WelcomeMessageRepository();
+    public MessageRepository provideMessageRepository(WelcomeMessageRepository messageRepository) {
+        return messageRepository;
     }
 
 }

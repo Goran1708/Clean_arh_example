@@ -26,7 +26,6 @@ public class MainPresenterImpl implements MainPresenter,
 
         mView.showProgress();
 
-
 //      // run the interactor
         welcomingInteractor.execute(this);
     }
