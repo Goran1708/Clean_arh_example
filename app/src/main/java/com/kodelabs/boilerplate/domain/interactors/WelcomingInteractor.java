@@ -11,4 +11,6 @@ public interface WelcomingInteractor extends Interactor {
 
         void onRetrievalFailed(String error);
     }
+
+    void execute(final Callback callback);
 }

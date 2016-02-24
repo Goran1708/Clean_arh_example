@@ -2,6 +2,9 @@ package com.kodelabs.boilerplate.domain.interactors.base;
 
 import com.kodelabs.boilerplate.domain.executor.Executor;
 import com.kodelabs.boilerplate.domain.executor.MainThread;
+import com.kodelabs.boilerplate.domain.interactors.WelcomingInteractor;
+
+import javax.inject.Inject;
 
 /**
  * Created by dmilicic on 8/4/15.

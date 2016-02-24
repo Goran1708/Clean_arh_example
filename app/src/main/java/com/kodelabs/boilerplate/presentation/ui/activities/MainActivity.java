@@ -6,12 +6,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kodelabs.boilerplate.R;
-import com.kodelabs.boilerplate.domain.executor.impl.ThreadExecutor;
+import com.kodelabs.boilerplate.dagger_di.components.DaggerMainActivityComponent;
+import com.kodelabs.boilerplate.dagger_di.components.MainActivityComponent;
+import com.kodelabs.boilerplate.dagger_di.modules.MainActivityModule;
 import com.kodelabs.boilerplate.presentation.presenters.MainPresenter;
 import com.kodelabs.boilerplate.presentation.presenters.MainPresenter.View;
-import com.kodelabs.boilerplate.presentation.presenters.impl.MainPresenterImpl;
-import com.kodelabs.boilerplate.storage.WelcomeMessageRepository;
-import com.kodelabs.boilerplate.threading.MainThreadImpl;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity implements View {
     @Bind(R.id.welcome_textview)
     TextView mWelcomeTextView;
 
-    private MainPresenter mPresenter;
+    @Inject
+    public MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,10 @@ public class MainActivity extends AppCompatActivity implements View {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        // create a presenter for this view
-        mPresenter = new MainPresenterImpl(
-                ThreadExecutor.getInstance(),
-                MainThreadImpl.getInstance(),
-                this,
-                new WelcomeMessageRepository()
-        );
+        MainActivityComponent component = DaggerMainActivityComponent.builder()
+                .mainActivityModule(new MainActivityModule(this))
+                .build();
+        component.inject(this);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View {
         super.onResume();
 
         // let's start welcome message retrieval when the app resumes
-        mPresenter.resume();
+        mainPresenter.resume();
     }
 
     @Override

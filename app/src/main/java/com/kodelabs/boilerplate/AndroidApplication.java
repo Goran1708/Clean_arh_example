@@ -12,5 +12,7 @@ public class AndroidApplication extends Application {
 
         // initiate Timber
         Timber.plant(new DebugTree());
+
+//        DaggerAppComponent.create().inject(this);
     }
 }

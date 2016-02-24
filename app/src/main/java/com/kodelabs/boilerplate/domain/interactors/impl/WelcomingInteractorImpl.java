@@ -6,6 +6,8 @@ import com.kodelabs.boilerplate.domain.interactors.WelcomingInteractor;
 import com.kodelabs.boilerplate.domain.interactors.base.AbstractInteractor;
 import com.kodelabs.boilerplate.domain.repository.MessageRepository;
 
+import javax.inject.Inject;
+
 /**
  * This is an interactor boilerplate with a reference to a model repository.
  * <p/>
@@ -15,12 +17,18 @@ public class WelcomingInteractorImpl extends AbstractInteractor implements Welco
     private WelcomingInteractor.Callback mCallback;
     private MessageRepository            mMessageRepository;
 
+    @Inject
     public WelcomingInteractorImpl(Executor threadExecutor,
                                    MainThread mainThread,
-                                   Callback callback, MessageRepository messageRepository) {
+                                    MessageRepository messageRepository) {
         super(threadExecutor, mainThread);
-        mCallback = callback;
         mMessageRepository = messageRepository;
+    }
+
+    @Override
+    public void execute(Callback callback) {
+        mCallback = callback;
+        this.mThreadExecutor.execute(this);
     }
 
     private void notifyError() {
