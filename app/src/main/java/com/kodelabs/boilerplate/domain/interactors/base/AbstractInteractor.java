@@ -60,5 +60,4 @@ public abstract class AbstractInteractor implements Interactor {
         // start running this interactor in a background thread
         mThreadExecutor.execute(this);
     }
-
 }

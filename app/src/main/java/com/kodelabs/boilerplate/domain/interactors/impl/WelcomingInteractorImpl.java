@@ -28,7 +28,9 @@ public class WelcomingInteractorImpl extends AbstractInteractor implements Welco
     @Override
     public void execute(Callback callback) {
         mCallback = callback;
-        this.mThreadExecutor.execute(this);
+
+        //execute from base
+        execute();
     }
 
     private void notifyError() {
